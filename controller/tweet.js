@@ -1,5 +1,14 @@
-const tweet = (req, res) => {
-  res.send("Hello");
-};
+const ApiError = require("../error/apiError");
 
-module.exports = tweet
+class tweetController {
+  tweet(req, res, next) {
+    const { msg } = req.body;
+    if (!msg) {
+      next(ApiError.badRequest("msg field is required"));
+      return;
+    }
+    res.status(200);
+  }
+}
+
+module.exports = new tweetController();
