@@ -1,13 +1,12 @@
 const express = require("express");
-const errorHandler = require("./error/error_handler");
-const tweet = require("./routes/tweet");
-
+const errorHandler = require("./errors/error_handler");
+const notFound = require("./middlewares/notFound");
 const app = express();
-app.use(express.json());
-
+const ProductRoute = require("./routes/productRoute");
+app.use("/products", ProductRoute);
+app.use(notFound);
 app.use(errorHandler);
-app.use("/tweet", tweet);
 
 app.listen(4000, () => {
-  console.log("Running on 4000");
+  console.log("running on port 4000");
 });
